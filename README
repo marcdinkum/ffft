@@ -1,0 +1,40 @@
+		FFFT: Fast Full Fourier Transform
+
+Experiments in spectral domain by taking frequency transform of an entire
+fragment of music, changing spectral features and transforming back
+
+Marc Groenewegen - marc.groenewegen@hku.nl
+Pieter suurmond - pieter.suurmond@hku.nl
+
+***********************************************************************
+           N.B.: turn down the volume with these experiments!
+         Serious risk of blowing up speakers or damaging your ears.
+          Best played in combination with visual representation.
+***********************************************************************
+
+Prerequisites:
+- libfftw - C library for discrete Fourier transform in one or more dimensions
+  http://fftw.org
+- MFFM FFTw C++ wrapper
+  http://sourceforge.net/projects/mffmfftwrapper
+- libsndfile - sound file reading and creation
+  http://www.mega-nerd.com/libsndfile
+
+For Ubuntu and other Debian derivatives:
+install libfftw3-dev, mffm-fftw-dev and libsndfile1-dev
+
+The main file ffft.cpp is compiled by typing 'make'. If you installed the
+mentioned prerequisites this should build the executable ffft
+
+Call the program with two filenames on the command line: a file for input
+and a file for output. The number of channels of the input file can be
+greater than one. The program uses only the first channel and produces a
+mono output file.
+
+The unmodified program returns the original audio signal. This is useful
+for testing.
+
+When modifying the program, be sure you visually check the resulting sound
+file before playing it and play at low volume. These spectral tricks can
+result in accumulation of energy at certain points in the fragment.
+
