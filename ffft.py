@@ -1,12 +1,32 @@
+######################################################################
+#          Copyright (c) 2020, Hogeschool voor de Kunsten Utrecht
+#                      Hilversum, the Netherlands
+#                          All rights reserved
+#######################################################################
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or
+#  (at your option) any later version.
+#
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  You should have received a copy of the GNU General Public License
+#  along with this program.
+#  If not, see <http://www.gnu.org/licenses/>.
+#######################################################################
 #
 # FFFT : Fast Full Fourier Transform
 #
-# Marc Groenewegen 2020
-# Original idea: Pieter Suurmond
+# Marc Groenewegen 2020 <marc.groenewegen@hku.nl>
+# Original idea: Pieter Suurmond <pieter.suurmond@hku.nl>
 #
 # Take the FFT of an entire WAV file, modify parameters in the frequency
 # domain and transform the entire spectrum back to the time domain
-#
+####################################################################
+
 
 ####################################################################
 # WARNING: always look at the output file and turn down the volume
@@ -57,7 +77,7 @@ def ffft(infile,outfile):
   YPhase=np.angle(Y)
 
   # set the phase of every bin to zero
-  # YPhase = 0;
+  YPhase = 0;
 
   # reconstruct spectrum
   Y = YMag*(np.cos(YPhase) + 1j*np.sin(YPhase))
