@@ -1,6 +1,6 @@
 CPP = g++
 CFLAGS = -Wall -O3
-LDFLAGS= -lsndfile -lfft
+LDFLAGS= -lsndfile -lfft -lfftw3
 
 
 all: ffft
