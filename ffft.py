@@ -77,7 +77,8 @@ def ffft(infile,outfile):
   YPhase=np.angle(Y)
 
   # set the phase of every bin to zero
-  YPhase = 0;
+  # and be very careful when playing the result!
+  # YPhase = 0;
 
   # reconstruct spectrum
   Y = YMag*(np.cos(YPhase) + 1j*np.sin(YPhase))
@@ -90,13 +91,10 @@ def ffft(infile,outfile):
 
 
 if __name__ == '__main__':
-  if len(sys.argv) < 2:
-    print("Please enter input filename")
+  if len(sys.argv) < 3:
+    print("Please enter filenames for input and output")
     sys.exit()
   infile=sys.argv[1]
-  basename=os.path.splitext(sys.argv[1])[0]
-  extension=os.path.splitext(sys.argv[1])[1]
-  outfile=basename + "_out" + extension
-  print(outfile)
+  outfile=sys.argv[2]
   ffft(infile,outfile)
 

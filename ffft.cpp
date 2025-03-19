@@ -57,7 +57,7 @@ char *outfilename=NULL;
 SNDFILE	*infile = NULL;
 SNDFILE	*outfile = NULL;
 SF_INFO	sfinfo;	// libsndfile info struct
-int frames_read,frames_written;
+unsigned long frames_read,frames_to_write,frames_written;
 double *samplebuffer;
 unsigned long bufptr=0;
 
@@ -134,14 +134,14 @@ unsigned long bufptr=0;
      * the forward FFT, which could be done as part of the inverse FFT as
      * well, that is a choice
      */
-    mag=sqrt(fftData.out[i][0]*fftData.out[i][0]/(n*n) +
+    mag = sqrt(fftData.out[i][0]*fftData.out[i][0]/(n*n) +
              fftData.out[i][1]*fftData.out[i][1]/(n*n));
     phase=atan2(fftData.out[i][1],fftData.out[i][0]);
 
     /*
      * This is the fun part
      */
-    //phase=0; // for experimenting, set the phase to 0
+    // phase=0; // for experimenting, set the phase to 0
 
     /* reconstruct real and imaginary part from new magnitude & phase
      * N.B.: re-use the output buffer as source for the inverse FFT
@@ -170,13 +170,19 @@ unsigned long bufptr=0;
     exit(1);
   } // if
 
-  bufptr=0;
+
+  // don't write the first and last 0.5 seconds to prevent loud noise
+  //  due to smashing all cosines on top of each other when all
+  //  starting phases are set to 0
+  frames_to_write = n - sfinfo.samplerate;
+  bufptr=frames_to_write/2;
+
   // write sample buffer in chunks to the output file
   while((frames_written =
     sf_writef_double(outfile,samplebuffer+bufptr*sfinfo.channels,FRAMESPERBUFFER)) > 0)
   {
     bufptr+=frames_written;
-    if(bufptr>=n) break; // reached n, stop writing
+    if(bufptr >= frames_to_write) break; // reached the end, stop writing
   } // while
 
   delete [] samplebuffer;
