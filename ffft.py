@@ -86,8 +86,8 @@ def ffft(infile,outfile):
   # back to time domain
   y=ifft(Y)
 
-  # write the result
-  write(outfile,fs,np.real(y))
+  # write the result, skip first and last half second
+  write(outfile,fs,np.real(y)[22000:len(y)-22000])
 
 
 if __name__ == '__main__':

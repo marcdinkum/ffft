@@ -13,5 +13,5 @@ ffft: ffft.o
 
 clean:
 	rm -f *.o
-	rm -f `find . -perm +111 -type f`
+	rm -f `find . -perm /111 -type f`
 

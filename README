@@ -7,14 +7,19 @@ time domain
 Marc Groenewegen - marc.groenewegen@hku.nl
 Pieter suurmond - pieter.suurmond@hku.nl
 
+Please credit us when using this software.
+
 ***********************************************************************
            N.B.: turn down the volume with these experiments!
          Serious risk of blowing up speakers or damaging your ears.
           Best played in combination with visual representation
 	    such as sonic-visualiser or audacity.
 
-    EDIT March 2025: in the C++ version, first and last 0.5 second
-   of resulting audio are not written to the output file for this reason
+    The C++ version has a safe mode switch which skips 0.5 seconds of
+    output at the start and end.
+    Set SAFE_MODE to 1 for protection and set it to 0 to live dangerously.
+
+    The current Python version skips hardcoded 22000 samples at start and end.
 ***********************************************************************
 
 Prerequisites:

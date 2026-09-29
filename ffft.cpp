@@ -49,6 +49,7 @@ using namespace std;
 #define FRAMESPERBUFFER		1024
 #define MAXNROFCHANNELS		2
 
+#define SAFE_MODE 1
 
 int main(int argc,char **argv)
 {
@@ -174,8 +175,13 @@ unsigned long bufptr=0;
   // don't write the first and last 0.5 seconds to prevent loud noise
   //  due to smashing all cosines on top of each other when all
   //  starting phases are set to 0
-  frames_to_write = n - sfinfo.samplerate;
-  bufptr=frames_to_write/2;
+  #if SAFE_MODE
+    frames_to_write = n - sfinfo.samplerate;
+    bufptr=frames_to_write/2;
+  #else
+    frames_to_write = n;
+    bufptr=0;
+  #endif
 
   // write sample buffer in chunks to the output file
   while((frames_written =
